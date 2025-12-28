@@ -101,6 +101,17 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleDeleteEvent = async (eventName) => {
+    if (!window.confirm(`Are you sure you want to delete "${eventName}"?`)) return;
+    
+    try {
+      await axios.delete(`${API}/events/${eventName}`, { headers: { Authorization: `Bearer ${token}` } });
+      loadData();
+    } catch (error) {
+      alert(error.response?.data?.detail || 'Failed to delete event');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
