@@ -78,6 +78,9 @@ def create_access_token(data: dict) -> str:
     return encoded_jwt
 
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    if not credentials or not credentials.credentials:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
     try:
         token = credentials.credentials
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -88,6 +91,8 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
         raise HTTPException(status_code=401, detail="Token has expired")
     except jwt.JWTError:
         raise HTTPException(status_code=401, detail="Could not validate credentials")
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid token")
     
     user = await db.users.find_one({"email": email}, {"_id": 0, "password_hash": 0})
     if user is None:
