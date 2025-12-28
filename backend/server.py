@@ -36,6 +36,9 @@ class UserBase(BaseModel):
     role: str = "user"
     uniform_required: str = "Standard Scout Uniform"
 
+class UserCreate(UserBase):
+    password: str
+
 class UserRegister(UserBase):
     password: str
 
