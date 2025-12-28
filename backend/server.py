@@ -90,9 +90,9 @@ async def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] =
             raise HTTPException(status_code=401, detail="Invalid authentication credentials")
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token has expired")
-    except jwt.JWTError:
+    except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Could not validate credentials")
-    except Exception:
+    except Exception as e:
         raise HTTPException(status_code=401, detail="Invalid token")
     
     user = await db.users.find_one({"email": email}, {"_id": 0, "password_hash": 0})
