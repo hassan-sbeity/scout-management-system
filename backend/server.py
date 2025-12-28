@@ -8,7 +8,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
-from typing import List, Optional
+from typing import List
 from datetime import datetime, timezone, timedelta
 from passlib.context import CryptContext
 import jwt
@@ -95,7 +95,7 @@ async def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] =
         raise HTTPException(status_code=401, detail="Token has expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Could not validate credentials")
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=401, detail="Invalid token")
     
     user = await db.users.find_one({"email": email}, {"_id": 0, "password_hash": 0})
