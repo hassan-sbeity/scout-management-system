@@ -210,6 +210,15 @@ async def get_events(current_user: User = Depends(get_current_user)):
     events = await db.events.find({}, {"_id": 0}).to_list(1000)
     return [Event(**e) for e in events]
 
+@api_router.delete("/events/{event_name}")
+async def delete_event(event_name: str, admin: User = Depends(require_admin)):
+    event = await db.events.find_one({"event_name": event_name})
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+    
+    await db.events.delete_one({"event_name": event_name})
+    return {"message": "Event deleted successfully"}
+
 @api_router.post("/events/{event_name}/assign-user")
 async def assign_user_to_event(event_name: str, user_email: str, admin: User = Depends(require_admin)):
     event = await db.events.find_one({"event_name": event_name})
