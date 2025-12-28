@@ -247,6 +247,14 @@ const AdminDashboard = () => {
                     >
                       Join Event
                     </button>
+                    <button
+                      data-testid={`delete-event-button-${index}`}
+                      onClick={() => handleDeleteEvent(event.event_name)}
+                      className="h-8 w-8 bg-red-50 hover:bg-red-100 text-red-600 rounded-md font-manrope font-medium text-xs transition-all flex items-center justify-center"
+                      title="Delete Event"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               ))}
