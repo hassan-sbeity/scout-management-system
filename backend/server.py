@@ -24,7 +24,7 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)
 
 SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'your-secret-key-change-in-production')
 ALGORITHM = "HS256"
