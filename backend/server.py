@@ -114,7 +114,7 @@ async def require_chief(current_user: User = Depends(get_current_user)):
     return current_user
 
 @api_router.post("/auth/register", response_model=UserWithToken)
-async def register(user_data: UserRegister):
+async def register(user_data: UserCreate, chief: User = Depends(require_chief)):
     existing = await db.users.find_one({"email": user_data.email})
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
