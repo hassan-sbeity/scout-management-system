@@ -1,0 +1,104 @@
+{
+  "summary": {
+    "tests_run": 19,
+    "tests_passed": 17,
+    "success_rate": 89.47368421052632
+  },
+  "results": [
+    {
+      "test": "Admin Login",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "User Login",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Invalid Login",
+      "status": "PASS",
+      "details": "Status: 401"
+    },
+    {
+      "test": "User Registration",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Get Current User Profile",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Get All Users (Admin)",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Get All Users (User - Should Fail)",
+      "status": "PASS",
+      "details": "Status: 403"
+    },
+    {
+      "test": "Get All Events",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Create Event (Admin)",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Create Event (User - Should Fail)",
+      "status": "PASS",
+      "details": "Status: 403"
+    },
+    {
+      "test": "Assign User to Event",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Assign User to Event (Duplicate - Should Fail)",
+      "status": "PASS",
+      "details": "Status: 400"
+    },
+    {
+      "test": "Join Event as Admin",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Add Achievement to User",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Add Achievement (User - Should Fail)",
+      "status": "PASS",
+      "details": "Status: 403"
+    },
+    {
+      "test": "Get Statistics (Admin)",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Get Statistics (User - Should Fail)",
+      "status": "PASS",
+      "details": "Status: 403"
+    },
+    {
+      "test": "Access Protected Endpoint (No Token)",
+      "status": "FAIL",
+      "details": "Status: 403 (Expected: 401) - Not authenticated"
+    },
+    {
+      "test": "Access with Invalid Token",
+      "status": "FAIL",
+      "details": "Status: 520 (Expected: 401) - Internal Server Error"
+    }
+  ]
+}
