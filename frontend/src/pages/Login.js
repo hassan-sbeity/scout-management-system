@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Tent, LogIn, UserPlus } from 'lucide-react';
+import { Tent, LogIn } from 'lucide-react';
 
 const Login = () => {
-  const [isRegister, setIsRegister] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
-    password: '',
-    role: 'user'
+    password: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, register } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,12 +19,13 @@ const Login = () => {
     setLoading(true);
 
     try {
-      if (isRegister) {
-        const user = await register(formData.name, formData.email, formData.password, formData.role);
-        navigate(user.role === 'admin' ? '/admin' : '/dashboard');
+      const user = await login(formData.email, formData.password);
+      if (user.role === 'chief') {
+        navigate('/chief');
+      } else if (user.role === 'admin') {
+        navigate('/admin');
       } else {
-        const user = await login(formData.email, formData.password);
-        navigate(user.role === 'admin' ? '/admin' : '/dashboard');
+        navigate('/dashboard');
       }
     } catch (err) {
       setError(err.response?.data?.detail || 'Authentication failed');
@@ -60,12 +58,8 @@ const Login = () => {
               <div className="flex items-center justify-center mb-4 lg:hidden">
                 <Tent className="w-12 h-12 text-violet-800" />
               </div>
-              <h2 className="font-manrope font-bold text-3xl text-slate-900 mb-2">
-                {isRegister ? 'Create Account' : 'Welcome Back'}
-              </h2>
-              <p className="font-inter text-slate-600">
-                {isRegister ? 'Join the scout community' : 'Sign in to your account'}
-              </p>
+              <h2 className="font-manrope font-bold text-3xl text-slate-900 mb-2">Welcome Back</h2>
+              <p className="font-inter text-slate-600">Sign in to your account</p>
             </div>
 
             {error && (
@@ -75,23 +69,6 @@ const Login = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
-              {isRegister && (
-                <div>
-                  <label className="block font-manrope font-medium text-xs uppercase tracking-wider text-slate-500 mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    data-testid="register-name-input"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full h-11 px-4 bg-white border border-slate-200 rounded-md focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all font-inter"
-                    placeholder="John Doe"
-                  />
-                </div>
-              )}
-
               <div>
                 <label className="block font-manrope font-medium text-xs uppercase tracking-wider text-slate-500 mb-2">
                   Email Address
@@ -122,23 +99,6 @@ const Login = () => {
                 />
               </div>
 
-              {isRegister && (
-                <div>
-                  <label className="block font-manrope font-medium text-xs uppercase tracking-wider text-slate-500 mb-2">
-                    Role
-                  </label>
-                  <select
-                    data-testid="register-role-select"
-                    value={formData.role}
-                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                    className="w-full h-11 px-4 bg-white border border-slate-200 rounded-md focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all font-inter"
-                  >
-                    <option value="user">Scout Member (User)</option>
-                    <option value="admin">Scout Leader (Admin)</option>
-                  </select>
-                </div>
-              )}
-
               <button
                 data-testid="login-submit-button"
                 type="submit"
@@ -149,29 +109,18 @@ const Login = () => {
                   <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 ) : (
                   <>
-                    {isRegister ? <UserPlus className="w-5 h-5" /> : <LogIn className="w-5 h-5" />}
-                    {isRegister ? 'Create Account' : 'Sign In'}
+                    <LogIn className="w-5 h-5" />
+                    Sign In
                   </>
                 )}
               </button>
             </form>
-
-            <div className="mt-6 text-center">
-              <button
-                data-testid="toggle-auth-mode-button"
-                onClick={() => {
-                  setIsRegister(!isRegister);
-                  setError('');
-                }}
-                className="font-inter text-sm text-slate-600 hover:text-violet-700 transition-colors"
-              >
-                {isRegister ? 'Already have an account? Sign in' : "Don't have an account? Register"}
-              </button>
-            </div>
           </div>
 
           <div className="mt-6 text-center text-xs text-slate-500 font-inter">
-            <p>Demo Accounts: admin@scout.com / user@scout.com (password: demo123)</p>
+            <p>Demo Accounts:</p>
+            <p>Chief: chief@scout.com / Admin: admin@scout.com / User: user@scout.com</p>
+            <p>(password: demo123)</p>
           </div>
         </div>
       </div>

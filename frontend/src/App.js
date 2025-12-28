@@ -2,13 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
+import ChiefDashboard from './pages/ChiefDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import Events from './pages/Events';
 import Profile from './pages/Profile';
 import './App.css';
 
-const ProtectedRoute = ({ children, requireAdmin }) => {
+const ProtectedRoute = ({ children, requireChief, requireAdmin }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -26,7 +27,11 @@ const ProtectedRoute = ({ children, requireAdmin }) => {
     return <Navigate to="/login" replace />;
   }
 
-  if (requireAdmin && user.role !== 'admin') {
+  if (requireChief && user.role !== 'chief') {
+    return <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace />;
+  }
+
+  if (requireAdmin && !['admin', 'chief'].includes(user.role)) {
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -38,7 +43,12 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/login" element={!user ? <Login /> : <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace />} />
+      <Route path="/login" element={!user ? <Login /> : <Navigate to={user.role === 'chief' ? '/chief' : user.role === 'admin' ? '/admin' : '/dashboard'} replace />} />
+      <Route path="/chief" element={
+        <ProtectedRoute requireChief>
+          <ChiefDashboard />
+        </ProtectedRoute>
+      } />
       <Route path="/admin" element={
         <ProtectedRoute requireAdmin>
           <AdminDashboard />
