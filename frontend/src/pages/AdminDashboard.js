@@ -273,6 +273,7 @@ const AdminDashboard = () => {
                     <div className="flex-1">
                       <h3 className="font-manrope font-semibold text-slate-900">{usr.name}</h3>
                       <p className="text-sm text-slate-600 font-inter">{usr.email}</p>
+                      <p className="text-xs text-slate-500 font-inter mt-1">Uniform: {usr.uniform_required}</p>
                       <div className="flex items-center gap-2 mt-2">
                         <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full text-xs font-medium">
                           {usr.events_joined_count} events
