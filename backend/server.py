@@ -147,9 +147,41 @@ async def get_current_user_profile(current_user: User = Depends(get_current_user
     return current_user
 
 @api_router.get("/users", response_model=List[User])
-async def get_all_users(admin: User = Depends(require_admin)):
+async def get_all_users(current_user: User = Depends(get_current_user)):
+    if current_user.role not in ["admin", "chief"]:
+        raise HTTPException(status_code=403, detail="Admin or Chief access required")
     users = await db.users.find({}, {"_id": 0, "password_hash": 0}).to_list(1000)
     return [User(**u) for u in users]
+
+@api_router.post("/users", response_model=User)
+async def create_user(user_data: UserCreate, chief: User = Depends(require_chief)):
+    existing = await db.users.find_one({"email": user_data.email})
+    if existing:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    user_dict = user_data.model_dump()
+    password = user_dict.pop("password")
+    user_dict["password_hash"] = hash_password(password)
+    user_dict["events_joined_count"] = 0
+    user_dict["achievements"] = []
+    
+    await db.users.insert_one(user_dict)
+    user = User(**{k: v for k, v in user_dict.items() if k != "password_hash"})
+    return user
+
+@api_router.delete("/users/{user_email}")
+async def delete_user(user_email: str, chief: User = Depends(require_chief)):
+    user = await db.users.find_one({"email": user_email})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user.get("role") == "chief":
+        raise HTTPException(status_code=403, detail="Cannot delete chief account")
+    
+    await db.users.delete_one({"email": user_email})
+    await db.events.update_many({}, {"$pull": {"users_assigned": user_email, "admins_joined": user_email}})
+    
+    return {"message": "User deleted successfully"}
 
 @api_router.post("/users/{user_email}/achievements")
 async def add_achievement(user_email: str, achievement_data: AchievementAdd, admin: User = Depends(require_admin)):
