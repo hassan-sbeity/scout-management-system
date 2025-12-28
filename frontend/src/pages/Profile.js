@@ -13,7 +13,11 @@ const Profile = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-4">
           <button
             data-testid="back-button"
-            onClick={() => navigate(user?.role === 'admin' ? '/admin' : '/dashboard')}
+            onClick={() => navigate(
+              user?.role === 'chief' ? '/chief' : 
+              user?.role === 'admin' ? '/admin' : 
+              '/dashboard'
+            )}
             className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-slate-600" />
