@@ -1,0 +1,132 @@
+{
+  "identity": {
+    "name": "ScoutFlow",
+    "persona": "E1: The Anti-AI Designer",
+    "tone": "Organized, Encouraging, Trustworthy, Modern",
+    "metaphor": "The Night Sky (Purple) & The Forest (Green)"
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Manrope, sans-serif",
+      "body": "Inter, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Inter:wght@400;500;600&display=swap');"
+    ],
+    "rules": {
+      "h1": "font-manrope font-extrabold text-4xl md:text-5xl tracking-tight text-slate-900",
+      "h2": "font-manrope font-bold text-3xl tracking-tight text-slate-800",
+      "h3": "font-manrope font-semibold text-xl text-slate-800",
+      "body": "font-inter text-base text-slate-600 leading-relaxed",
+      "label": "font-manrope font-medium text-xs uppercase tracking-wider text-slate-500"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "DEFAULT": "#5b21b6",
+        "light": "#ddd6fe",
+        "dark": "#4c1d95",
+        "foreground": "#ffffff"
+      },
+      "secondary": {
+        "DEFAULT": "#10b981",
+        "light": "#d1fae5",
+        "dark": "#047857",
+        "foreground": "#ffffff"
+      },
+      "background": {
+        "DEFAULT": "#f8fafc",
+        "paper": "#ffffff",
+        "subtle": "#f1f5f9"
+      },
+      "text": {
+        "primary": "#0f172a",
+        "secondary": "#64748b",
+        "muted": "#94a3b8"
+      }
+    },
+    "usage": {
+      "brand_primary": "bg-violet-800 text-white hover:bg-violet-900",
+      "brand_secondary": "bg-emerald-500 text-white hover:bg-emerald-600",
+      "background_main": "bg-slate-50",
+      "card_bg": "bg-white border border-slate-200 shadow-sm",
+      "accent_purple": "bg-purple-50 text-purple-900 border-purple-200"
+    }
+  },
+  "layout": {
+    "spacing": {
+      "container_padding": "p-6 md:p-12",
+      "section_gap": "gap-8 md:gap-12",
+      "card_padding": "p-6"
+    },
+    "grids": {
+      "admin_dashboard": "grid grid-cols-1 md:grid-cols-4 gap-6",
+      "user_dashboard": "grid grid-cols-1 md:grid-cols-12 gap-6",
+      "events_list": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    },
+    "border_radius": {
+      "card": "rounded-xl",
+      "button": "rounded-lg",
+      "input": "rounded-md"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "h-11 px-8 bg-violet-800 hover:bg-violet-900 text-white font-medium transition-all shadow-sm hover:shadow-md active:scale-95",
+      "secondary": "h-11 px-8 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 font-medium transition-all",
+      "ghost": "h-11 px-4 text-slate-600 hover:text-violet-700 hover:bg-violet-50 font-medium"
+    },
+    "cards": {
+      "default": "bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300",
+      "interactive": "group relative overflow-hidden bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer",
+      "glass": "bg-white/80 backdrop-blur-md border border-white/20 shadow-lg"
+    },
+    "inputs": {
+      "default": "h-11 bg-white border-slate-200 focus:border-violet-500 focus:ring-violet-500/20 rounded-md transition-all"
+    },
+    "badges": {
+      "success": "bg-emerald-100 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full text-xs font-medium",
+      "warning": "bg-amber-100 text-amber-700 border border-amber-200 px-2.5 py-0.5 rounded-full text-xs font-medium",
+      "neutral": "bg-slate-100 text-slate-700 border border-slate-200 px-2.5 py-0.5 rounded-full text-xs font-medium"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1565588496723-63494874b143?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "login_side": "https://images.unsplash.com/photo-1645165052641-c4081bc9eb48?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "events": [
+        "https://images.unsplash.com/photo-1669635455986-95af2fb7e755?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1632089401802-57a6747b3dd1?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1572223729752-da11b61089af?crop=entropy&cs=srgb&fm=jpg&q=85"
+      ],
+      "badges": [
+        "https://images.unsplash.com/photo-1656378130597-3e7d87bdce58?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1643914942676-04141eb97da4?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1577595353464-ac669bc9de95?crop=entropy&cs=srgb&fm=jpg&q=85"
+      ],
+      "avatars": [
+        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&h=100",
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100"
+      ]
+    },
+    "icons": "Use Lucide React icons. Preferred: Tent, Map, Award, Users, Calendar, Shield, Star, Compass"
+  },
+  "motion": {
+    "transitions": "transition-all duration-300 ease-out",
+    "hover_lift": "hover:-translate-y-1",
+    "page_enter": "animate-in fade-in slide-in-from-bottom-4 duration-500"
+  },
+  "universal_guidelines": [
+    "Do not use generic gradients. Use solid colors or subtle noise textures.",
+    "Ensure all interactive elements have data-testid attributes.",
+    "Use 'Manrope' for all headings to give a modern, friendly feel.",
+    "Maintain the 'White & Light Purple' theme requested by the user, but ground it with Slate neutrals.",
+    "Admin dashboard should be dense and functional (Control Room Grid).",
+    "User dashboard should be visual and encouraging (Tetris Grid).",
+    "Use the provided image URLs for specific contexts (Events, Badges).",
+    "Never use 'Inter' for headings.",
+    "Always add padding inside containers with borders."
+  ]
+}
